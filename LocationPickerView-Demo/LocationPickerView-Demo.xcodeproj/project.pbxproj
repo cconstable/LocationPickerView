@@ -1,0 +1,336 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		747B64DF173EFB4400DECD54 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 747B64DE173EFB4400DECD54 /* UIKit.framework */; };
+		747B64E1173EFB4400DECD54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 747B64E0173EFB4400DECD54 /* Foundation.framework */; };
+		747B64E3173EFB4400DECD54 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 747B64E2173EFB4400DECD54 /* CoreGraphics.framework */; };
+		747B64E9173EFB4400DECD54 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 747B64E7173EFB4400DECD54 /* InfoPlist.strings */; };
+		747B64EB173EFB4400DECD54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 747B64EA173EFB4400DECD54 /* main.m */; };
+		747B64EF173EFB4400DECD54 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 747B64EE173EFB4400DECD54 /* AppDelegate.m */; };
+		747B64F1173EFB4400DECD54 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 747B64F0173EFB4400DECD54 /* Default.png */; };
+		747B64F3173EFB4400DECD54 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 747B64F2173EFB4400DECD54 /* Default@2x.png */; };
+		747B64F5173EFB4400DECD54 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 747B64F4173EFB4400DECD54 /* Default-568h@2x.png */; };
+		747B64F8173EFB4400DECD54 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 747B64F6173EFB4400DECD54 /* MainStoryboard.storyboard */; };
+		747B64FB173EFB4400DECD54 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 747B64FA173EFB4400DECD54 /* ViewController.m */; };
+		747B6506173EFB5900DECD54 /* LocationPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 747B6503173EFB5900DECD54 /* LocationPickerView.m */; };
+		747B6507173EFB5900DECD54 /* UIImage+Icons.m in Sources */ = {isa = PBXBuildFile; fileRef = 747B6505173EFB5900DECD54 /* UIImage+Icons.m */; };
+		747B6509173F35A900DECD54 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 747B6508173F35A900DECD54 /* MapKit.framework */; };
+		747B650C173F388500DECD54 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 747B650B173F388500DECD54 /* SecondViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		747B64DB173EFB4400DECD54 /* LocationPickerView-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LocationPickerView-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		747B64DE173EFB4400DECD54 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		747B64E0173EFB4400DECD54 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		747B64E2173EFB4400DECD54 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		747B64E6173EFB4400DECD54 /* LocationPickerView-Demo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LocationPickerView-Demo-Info.plist"; sourceTree = "<group>"; };
+		747B64E8173EFB4400DECD54 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		747B64EA173EFB4400DECD54 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		747B64EC173EFB4400DECD54 /* LocationPickerView-Demo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LocationPickerView-Demo-Prefix.pch"; sourceTree = "<group>"; };
+		747B64ED173EFB4400DECD54 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		747B64EE173EFB4400DECD54 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		747B64F0173EFB4400DECD54 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		747B64F2173EFB4400DECD54 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		747B64F4173EFB4400DECD54 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		747B64F7173EFB4400DECD54 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		747B64F9173EFB4400DECD54 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		747B64FA173EFB4400DECD54 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		747B6502173EFB5900DECD54 /* LocationPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationPickerView.h; sourceTree = "<group>"; };
+		747B6503173EFB5900DECD54 /* LocationPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationPickerView.m; sourceTree = "<group>"; };
+		747B6504173EFB5900DECD54 /* UIImage+Icons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Icons.h"; sourceTree = "<group>"; };
+		747B6505173EFB5900DECD54 /* UIImage+Icons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Icons.m"; sourceTree = "<group>"; };
+		747B6508173F35A900DECD54 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		747B650A173F388500DECD54 /* SecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
+		747B650B173F388500DECD54 /* SecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		747B64D8173EFB4400DECD54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				747B6509173F35A900DECD54 /* MapKit.framework in Frameworks */,
+				747B64DF173EFB4400DECD54 /* UIKit.framework in Frameworks */,
+				747B64E1173EFB4400DECD54 /* Foundation.framework in Frameworks */,
+				747B64E3173EFB4400DECD54 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		747B64D2173EFB4400DECD54 = {
+			isa = PBXGroup;
+			children = (
+				747B6501173EFB5900DECD54 /* LocationPickerView */,
+				747B64E4173EFB4400DECD54 /* LocationPickerView-Demo */,
+				747B64DD173EFB4400DECD54 /* Frameworks */,
+				747B64DC173EFB4400DECD54 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		747B64DC173EFB4400DECD54 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				747B64DB173EFB4400DECD54 /* LocationPickerView-Demo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		747B64DD173EFB4400DECD54 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				747B6508173F35A900DECD54 /* MapKit.framework */,
+				747B64DE173EFB4400DECD54 /* UIKit.framework */,
+				747B64E0173EFB4400DECD54 /* Foundation.framework */,
+				747B64E2173EFB4400DECD54 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		747B64E4173EFB4400DECD54 /* LocationPickerView-Demo */ = {
+			isa = PBXGroup;
+			children = (
+				747B64ED173EFB4400DECD54 /* AppDelegate.h */,
+				747B64EE173EFB4400DECD54 /* AppDelegate.m */,
+				747B64F6173EFB4400DECD54 /* MainStoryboard.storyboard */,
+				747B64F9173EFB4400DECD54 /* ViewController.h */,
+				747B64FA173EFB4400DECD54 /* ViewController.m */,
+				747B650A173F388500DECD54 /* SecondViewController.h */,
+				747B650B173F388500DECD54 /* SecondViewController.m */,
+				747B64E5173EFB4400DECD54 /* Supporting Files */,
+			);
+			path = "LocationPickerView-Demo";
+			sourceTree = "<group>";
+		};
+		747B64E5173EFB4400DECD54 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				747B64E6173EFB4400DECD54 /* LocationPickerView-Demo-Info.plist */,
+				747B64E7173EFB4400DECD54 /* InfoPlist.strings */,
+				747B64EA173EFB4400DECD54 /* main.m */,
+				747B64EC173EFB4400DECD54 /* LocationPickerView-Demo-Prefix.pch */,
+				747B64F0173EFB4400DECD54 /* Default.png */,
+				747B64F2173EFB4400DECD54 /* Default@2x.png */,
+				747B64F4173EFB4400DECD54 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		747B6501173EFB5900DECD54 /* LocationPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				747B6502173EFB5900DECD54 /* LocationPickerView.h */,
+				747B6503173EFB5900DECD54 /* LocationPickerView.m */,
+				747B6504173EFB5900DECD54 /* UIImage+Icons.h */,
+				747B6505173EFB5900DECD54 /* UIImage+Icons.m */,
+			);
+			name = LocationPickerView;
+			path = ../LocationPickerView;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		747B64DA173EFB4400DECD54 /* LocationPickerView-Demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 747B64FE173EFB4400DECD54 /* Build configuration list for PBXNativeTarget "LocationPickerView-Demo" */;
+			buildPhases = (
+				747B64D7173EFB4400DECD54 /* Sources */,
+				747B64D8173EFB4400DECD54 /* Frameworks */,
+				747B64D9173EFB4400DECD54 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "LocationPickerView-Demo";
+			productName = "LocationPickerView-Demo";
+			productReference = 747B64DB173EFB4400DECD54 /* LocationPickerView-Demo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		747B64D3173EFB4400DECD54 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Christopher Constable";
+			};
+			buildConfigurationList = 747B64D6173EFB4400DECD54 /* Build configuration list for PBXProject "LocationPickerView-Demo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 747B64D2173EFB4400DECD54;
+			productRefGroup = 747B64DC173EFB4400DECD54 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				747B64DA173EFB4400DECD54 /* LocationPickerView-Demo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		747B64D9173EFB4400DECD54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				747B64E9173EFB4400DECD54 /* InfoPlist.strings in Resources */,
+				747B64F1173EFB4400DECD54 /* Default.png in Resources */,
+				747B64F3173EFB4400DECD54 /* Default@2x.png in Resources */,
+				747B64F5173EFB4400DECD54 /* Default-568h@2x.png in Resources */,
+				747B64F8173EFB4400DECD54 /* MainStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		747B64D7173EFB4400DECD54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				747B64EB173EFB4400DECD54 /* main.m in Sources */,
+				747B64EF173EFB4400DECD54 /* AppDelegate.m in Sources */,
+				747B64FB173EFB4400DECD54 /* ViewController.m in Sources */,
+				747B6506173EFB5900DECD54 /* LocationPickerView.m in Sources */,
+				747B6507173EFB5900DECD54 /* UIImage+Icons.m in Sources */,
+				747B650C173F388500DECD54 /* SecondViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		747B64E7173EFB4400DECD54 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				747B64E8173EFB4400DECD54 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		747B64F6173EFB4400DECD54 /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				747B64F7173EFB4400DECD54 /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		747B64FC173EFB4400DECD54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		747B64FD173EFB4400DECD54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		747B64FF173EFB4400DECD54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LocationPickerView-Demo/LocationPickerView-Demo-Prefix.pch";
+				INFOPLIST_FILE = "LocationPickerView-Demo/LocationPickerView-Demo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		747B6500173EFB4400DECD54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LocationPickerView-Demo/LocationPickerView-Demo-Prefix.pch";
+				INFOPLIST_FILE = "LocationPickerView-Demo/LocationPickerView-Demo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		747B64D6173EFB4400DECD54 /* Build configuration list for PBXProject "LocationPickerView-Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				747B64FC173EFB4400DECD54 /* Debug */,
+				747B64FD173EFB4400DECD54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		747B64FE173EFB4400DECD54 /* Build configuration list for PBXNativeTarget "LocationPickerView-Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				747B64FF173EFB4400DECD54 /* Debug */,
+				747B6500173EFB4400DECD54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 747B64D3173EFB4400DECD54 /* Project object */;
+}

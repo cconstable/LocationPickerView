@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="r3S-JW-2Gv">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller - Demo-->
+        <scene sceneID="5">
+            <objects>
+                <viewController id="2" customClass="ViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Demo" id="lSN-3g-7KR"/>
+                    <connections>
+                        <segue destination="3zj-Mx-Qpo" kind="push" identifier="Second" id="UHP-9W-fzu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="916" y="60"/>
+        </scene>
+        <!--Second View Controller - Demo-->
+        <scene sceneID="Waw-eD-2SK">
+            <objects>
+                <viewController id="3zj-Mx-Qpo" customClass="SecondViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="64K-X3-OWC">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Fz-CR-FNW" customClass="LocationPickerView">
+                                <color key="backgroundColor" red="0.98951690051020413" green="0.93666300792737089" blue="0.79815335029169587" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="tableViewDataSource" destination="3zj-Mx-Qpo" id="ABO-R9-Ysg"/>
+                                    <outlet property="tableViewDelegate" destination="3zj-Mx-Qpo" id="uif-YR-Siy"/>
+                                </connections>
+                            </view>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="hFW-Lf-hek">
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hFW-Lf-hek" firstAttribute="trailing" secondItem="64K-X3-OWC" secondAttribute="trailing" type="default" id="6eQ-UK-eF4"/>
+                            <constraint firstItem="hFW-Lf-hek" firstAttribute="leading" secondItem="64K-X3-OWC" secondAttribute="leading" type="default" id="A4R-C0-jNF"/>
+                            <constraint firstItem="6Fz-CR-FNW" firstAttribute="bottom" secondItem="64K-X3-OWC" secondAttribute="bottom" type="default" id="Oyf-Wb-gl3"/>
+                            <constraint firstItem="hFW-Lf-hek" firstAttribute="top" secondItem="64K-X3-OWC" secondAttribute="top" type="default" id="PYh-Jk-FWe"/>
+                            <constraint firstItem="6Fz-CR-FNW" firstAttribute="trailing" secondItem="64K-X3-OWC" secondAttribute="trailing" type="default" id="dbO-zt-n1N"/>
+                            <constraint firstItem="6Fz-CR-FNW" firstAttribute="leading" secondItem="64K-X3-OWC" secondAttribute="leading" type="default" id="e0L-IT-xu2"/>
+                            <constraint firstItem="6Fz-CR-FNW" firstAttribute="top" secondItem="hFW-Lf-hek" secondAttribute="bottom" type="default" id="l0Z-7H-HzK"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Demo" id="hij-S7-QZ4">
+                        <barButtonItem key="rightBarButtonItem" title="Map" id="aIf-Wt-ank">
+                            <connections>
+                                <action selector="toggleMapView:" destination="6Fz-CR-FNW" id="jbH-Ng-SRo"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rQp-IX-K3g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1451" y="60"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="mGJ-ZE-778">
+            <objects>
+                <navigationController id="r3S-JW-2Gv" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="KHc-e2-yQ1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="2" kind="relationship" relationship="rootViewController" id="r70-CB-obD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GML-1H-Uo9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="377" y="60"/>
+        </scene>
+    </scenes>
+    <classes>
+        <class className="LocationPickerView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LocationPickerView.h"/>
+            <relationships>
+                <relationship kind="action" name="expandMapView:"/>
+                <relationship kind="action" name="hideMapView:"/>
+                <relationship kind="action" name="toggleMapView:"/>
+                <relationship kind="outlet" name="tableViewDataSource"/>
+                <relationship kind="outlet" name="tableViewDelegate"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="SecondViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SecondViewController.h"/>
+        </class>
+        <class className="ViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
+        </class>
+    </classes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

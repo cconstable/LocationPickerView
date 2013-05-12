@@ -14,7 +14,7 @@ This view is useful for when a list of scrollable, selectable locations need to 
 
 ## Usage
 
-1. Drop the **LocationPickerView** folder into you app. 
+1. Drop the **LocationPickerView** folder into your app. 
 2. In the view controlller you'd like to use the location picker in, add the following lines to `viewDidLoad`:
 
 ```

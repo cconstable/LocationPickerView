@@ -3,11 +3,14 @@ LocationPickerView
 
 MKMapView + UITableView + Parallax scrolling. Provides a framework for building an interactive location picker on iOS.
 
-This library
+This view is useful for when a list of scrollable, selectable locations need to be shown along with their locations on map. A search bar can easily be added for searching or filtering.
 
-![](https://raw.github.com/mstrchrstphr/LocationPickerView/master/github-images/01.png)
-
-![](https://raw.github.com/mstrchrstphr/LocationPickerView/master/github-images/02.png)
+<table>
+  <tr>
+    <td><img src="https://raw.github.com/mstrchrstphr/LocationPickerView/master/github-images/01.png"/></td>
+    <td><img src="https://raw.github.com/mstrchrstphr/LocationPickerView/master/github-images/02.png"/></td>
+  </tr>
+</table>
 
 ## Usage
 

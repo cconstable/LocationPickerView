@@ -55,6 +55,7 @@
     _defaultMapHeight               = 130.0f;
     _parallaxScrollFactor           = 0.6f;
     _amountToScrollToFullScreenMap  = 110.0f;
+    self.autoresizesSubviews        = YES;
 }
 
 
@@ -66,6 +67,8 @@
         _tableView = [[UITableView alloc] initWithFrame:self.bounds];
         self.tableView.delegate = self.tableViewDelegate;
         self.tableView.dataSource = self.tableViewDataSource;
+        self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
+        UIViewAutoresizingFlexibleHeight;
         
         // Add scroll view KVO
         void *context = (__bridge void *)self;
@@ -91,6 +94,7 @@
     if (!self.mapView) {
         self.defaultMapViewFrame = CGRectMake(0.0, -100.0, 320.0, self.defaultMapHeight + 100.0f);
         _mapView = [[MKMapView alloc] initWithFrame:self.defaultMapViewFrame];
+        self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.mapView.scrollEnabled = NO;
         self.mapView.zoomEnabled = NO;
         self.mapView.delegate = self.mapViewDelegate;

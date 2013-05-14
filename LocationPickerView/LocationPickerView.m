@@ -63,7 +63,7 @@
     [super layoutSubviews];
     
     if (!self.tableView) {
-        self.tableView = [[UITableView alloc] initWithFrame:self.bounds];
+        _tableView = [[UITableView alloc] initWithFrame:self.bounds];
         self.tableView.delegate = self.tableViewDelegate;
         self.tableView.dataSource = self.tableViewDataSource;
         
@@ -72,6 +72,14 @@
         [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:context];
         
         [self addSubview:self.tableView];
+        
+        if ([self.delegate respondsToSelector:@selector(locationPicker:tableViewDidLoad:)]) {
+            [self.delegate locationPicker:self tableViewDidLoad:self.tableView];
+        }
+        
+        if (self.tableViewDidLoadBlock) {
+            [self tableViewDidLoadBlock];
+        }
     }
     
     CGRect tableHeaderViewFrame = CGRectMake(0.0, 0.0, self.tableView.frame.size.width, self.defaultMapHeight);
@@ -80,10 +88,19 @@
     
     if (!self.mapView) {
         self.defaultMapViewFrame = CGRectMake(0.0, -100.0, 320.0, self.defaultMapHeight + 100.0f);
-        self.mapView = [[MKMapView alloc] initWithFrame:self.defaultMapViewFrame];
+        _mapView = [[MKMapView alloc] initWithFrame:self.defaultMapViewFrame];
         self.mapView.scrollEnabled = NO;
         self.mapView.zoomEnabled = NO;
+        self.mapView.delegate = self.mapViewDelegate;
         [self insertSubview:self.mapView aboveSubview:self.tableView];
+        
+        if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewDidLoad:)]) {
+            [self.delegate locationPicker:self mapViewDidLoad:self.mapView];
+        }
+        
+        if (self.mapViewDidLoadBlock) {
+            [self mapViewDidLoadBlock];
+        }
     }
     
     // Add tap gesture to map
@@ -113,6 +130,38 @@
     
     if (_tableViewDataSource) {
         [self.tableView reloadData];
+    }
+}
+
+- (void)setMapViewDelegate:(id<MKMapViewDelegate>)mapViewDelegate
+{
+    _mapViewDelegate = mapViewDelegate;
+    self.mapView.delegate = _mapViewDelegate;
+}
+
+- (void)setTableView:(UITableView *)tableView
+{
+    _tableView = tableView;
+    
+    if ([self.delegate respondsToSelector:@selector(locationPicker:tableViewDidLoad:)]) {
+        [self.delegate locationPicker:self tableViewDidLoad:self.tableView];
+    }
+    
+    if (self.tableViewDidLoadBlock) {
+        [self tableViewDidLoadBlock];
+    }
+}
+
+- (void)setMapView:(MKMapView *)mapView
+{
+    _mapView = mapView;
+    
+    if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewDidLoad:)]) {
+        [self.delegate locationPicker:self mapViewDidLoad:self.mapView];
+    }
+    
+    if (self.mapViewDidLoadBlock) {
+        [self mapViewDidLoadBlock];
     }
 }
 

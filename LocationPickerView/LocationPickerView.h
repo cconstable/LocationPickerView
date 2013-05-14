@@ -9,7 +9,9 @@
 
 
 @class MKMapView;
+@protocol MKMapViewDelegate;
 @protocol LocationPickerViewDelegate;
+typedef void (^LocationPickerViewCompletionBlock)();
 
 
 @interface LocationPickerView : UIView <UIScrollViewDelegate>
@@ -43,7 +45,7 @@
 @property (nonatomic, readonly) BOOL isMapFullScreen;
 
 /** The delegate gets notified when the map expands, shrinks, etc. */
-@property (nonatomic, weak) id<LocationPickerViewDelegate> delegate;
+@property (nonatomic, weak) IBOutlet id<LocationPickerViewDelegate> delegate;
 
 /** The map view, duh. */
 @property (nonatomic, strong) MKMapView *mapView;
@@ -58,6 +60,16 @@
 /** This UITableViewDelegate is forwarded to the LocationPickers's
  UITableView when it is created. */
 @property (nonatomic, weak) IBOutlet id<UITableViewDelegate> tableViewDelegate;
+
+/** This MKMapViewDelegate is forwarded to the LocationPickers's
+ MKMapView when it is created. */
+@property (nonatomic, weak) IBOutlet id<MKMapViewDelegate> mapViewDelegate;
+
+/** Called after the tableView has been loaded. Allows for additional setup. */
+@property (nonatomic, copy) LocationPickerViewCompletionBlock tableViewDidLoadBlock;
+
+/** Called after the tableView has been loaded. Allows for additional setup. */
+@property (nonatomic, copy) LocationPickerViewCompletionBlock mapViewDidLoadBlock;
 
 /** Makes the map view full screen. */
 - (IBAction)expandMapView:(id)sender;
@@ -74,6 +86,16 @@
 @protocol LocationPickerViewDelegate <NSObject>
 
 @optional
+
+/** Called when the mapView is loaded or reloaded. Alternatively, the block 
+ properties of LocationPickerView can be used. */
+- (void)locationPicker:(LocationPickerView *)locationPicker
+     mapViewDidLoad:(MKMapView *)mapView;
+
+/** Called when the tableView is loaded or reloaded. Alternatively, the block
+ properties of LocationPickerView can be used.  */
+- (void)locationPicker:(LocationPickerView *)locationPicker
+        tableViewDidLoad:(UITableView *)tableView;
 
 /** Called when the mapView is about to be expanded (made fullscreen).
  Use this to perform custom animations or set attributes of the map/table. */

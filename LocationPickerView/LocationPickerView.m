@@ -82,9 +82,11 @@
         }
     }
     
-    CGRect tableHeaderViewFrame = CGRectMake(0.0, 0.0, self.tableView.frame.size.width, self.defaultMapHeight);
-    UIView *tableHeaderView = [[UIView alloc] initWithFrame:tableHeaderViewFrame];
-    self.tableView.tableHeaderView = tableHeaderView;
+    if (!self.tableView.tableHeaderView) {
+        CGRect tableHeaderViewFrame = CGRectMake(0.0, 0.0, self.tableView.frame.size.width, self.defaultMapHeight);
+        UIView *tableHeaderView = [[UIView alloc] initWithFrame:tableHeaderViewFrame];
+        self.tableView.tableHeaderView = tableHeaderView;
+    }
     
     if (!self.mapView) {
         self.defaultMapViewFrame = CGRectMake(0.0, -100.0, 320.0, self.defaultMapHeight + 100.0f);

@@ -73,6 +73,7 @@
     
     if (!self.tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.bounds];
+        self.tableView.backgroundColor = [UIColor clearColor];
         self.tableView.delegate = self.tableViewDelegate;
         self.tableView.dataSource = self.tableViewDataSource;
         self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
@@ -96,17 +97,21 @@
     if (!self.tableView.tableHeaderView) {
         CGRect tableHeaderViewFrame = CGRectMake(0.0, 0.0, self.tableView.frame.size.width, self.defaultMapHeight);
         UIView *tableHeaderView = [[UIView alloc] initWithFrame:tableHeaderViewFrame];
+        tableHeaderView.backgroundColor = [UIColor clearColor];
         self.tableView.tableHeaderView = tableHeaderView;
     }
     
     if (!self.mapView) {
-        self.defaultMapViewFrame = CGRectMake(0.0, -100.0, 320.0, self.defaultMapHeight + 100.0f);
+        self.defaultMapViewFrame = CGRectMake(0.0,
+                                              -self.defaultMapHeight * self.parallaxScrollFactor * 2,
+                                              self.tableView.frame.size.width,
+                                              self.defaultMapHeight + (self.defaultMapHeight * self.parallaxScrollFactor * 4));
         _mapView = [[MKMapView alloc] initWithFrame:self.defaultMapViewFrame];
         self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.mapView.scrollEnabled = NO;
         self.mapView.zoomEnabled = NO;
         self.mapView.delegate = self.mapViewDelegate;
-        [self insertSubview:self.mapView aboveSubview:self.tableView];
+        [self insertSubview:self.mapView belowSubview:self.tableView];
         
         if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewDidLoad:)]) {
             [self.delegate locationPicker:self mapViewDidLoad:self.mapView];
@@ -117,13 +122,13 @@
         }
     }
     
-    // Add tap gesture to map
+    // Add tap gesture to table
     if (!self.mapTapGesture) {
         self.mapTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                      action:@selector(mapWasTapped:)];
         self.mapTapGesture.cancelsTouchesInView = YES;
         self.mapTapGesture.delaysTouchesBegan = NO;
-        [self.mapView addGestureRecognizer:self.mapTapGesture];
+        [self.tableView.tableHeaderView addGestureRecognizer:self.mapTapGesture];
     }
 }
 
@@ -235,7 +240,17 @@
     }
     
     self.isMapAnimating = YES;
-    [self.mapView removeGestureRecognizer:self.mapTapGesture];
+    [self.tableView.tableHeaderView removeGestureRecognizer:self.mapTapGesture];
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    CGRect newMapFrame = self.mapView.frame;
+    newMapFrame = CGRectMake(self.defaultMapViewFrame.origin.x,
+                             self.defaultMapViewFrame.origin.y + (self.defaultMapHeight * self.parallaxScrollFactor),
+                             self.defaultMapViewFrame.size.width,
+                             self.defaultMapHeight + (self.defaultMapHeight * self.parallaxScrollFactor * 2));
+    self.mapView.frame = newMapFrame;
+    
+    [self bringSubviewToFront:self.mapView];
+    [self insertSubview:self.closeMapButton aboveSubview:self.mapView];
     
     [UIView animateWithDuration:0.3
                           delay:0.0
@@ -271,14 +286,23 @@
     self.isMapAnimating = YES;
     self.mapView.scrollEnabled = NO;
     self.mapView.zoomEnabled = NO;
-    [self.mapView addGestureRecognizer:self.mapTapGesture];
+    [self.tableView.tableHeaderView addGestureRecognizer:self.mapTapGesture];
     
     [UIView animateWithDuration:0.3
                           delay:0.0
                         options:UIViewAnimationOptionCurveEaseOut
                      animations:^{
-                         self.mapView.frame = self.defaultMapViewFrame;
+                         CGRect newMapFrame = CGRectMake(self.mapView.frame.origin.x,
+                                                         self.mapView.frame.origin.y,
+                                                         self.mapView.frame.size.width,
+                                                         self.defaultMapHeight);
+                         self.mapView.frame = newMapFrame;
                      } completion:^(BOOL finished) {
+                         
+                         // "Pop" the map view back in
+                         self.mapView.frame = self.defaultMapViewFrame;
+                         [self insertSubview:self.mapView belowSubview:self.tableView];
+                         [self insertSubview:self.closeMapButton aboveSubview:self.mapView];
                          self.isMapAnimating = NO;
                          _isMapFullScreen = NO;
                          
@@ -321,7 +345,7 @@
 }
 
 - (void)scrollViewDidScrollWithOffset:(CGFloat)scrollOffset
-{    
+{
     if ((self.isMapFullScreen == NO) &&
         (self.isMapAnimating == NO)) {
         CGFloat mapFrameYAdjustment = 0.0;
@@ -340,9 +364,9 @@
             }
         }
         
-        // If the user is scrolling normally, 
+        // If the user is scrolling normally,
         else {
-            mapFrameYAdjustment = self.defaultMapViewFrame.origin.y - scrollOffset;
+            mapFrameYAdjustment = self.defaultMapViewFrame.origin.y - (scrollOffset * self.parallaxScrollFactor);
             
             // Don't move the map way off-screen
             if (mapFrameYAdjustment <= -(self.defaultMapViewFrame.size.height)) {

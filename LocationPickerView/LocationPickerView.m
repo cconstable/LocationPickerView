@@ -60,6 +60,12 @@
                                       UIViewAutoresizingFlexibleHeight;
 }
 
+- (void)dealloc
+{
+    void *context = (__bridge void *)self;
+    [self.tableView removeObserver:self forKeyPath:@"contentOffset" context:context];
+}
+
 
 - (void)layoutSubviews
 {

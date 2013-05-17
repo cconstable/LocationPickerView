@@ -28,8 +28,8 @@
     self.locationPickerView.delegate = self;
     self.locationPickerView.shouldCreateHideMapButton = YES;
     self.locationPickerView.pullToExpandMapEnabled = YES;
-    self.locationPickerView.defaultMapHeight = 100.0; // smaller than normal
-    self.locationPickerView.parallaxScrollFactor = 0.4; // little slower than normal.
+    self.locationPickerView.defaultMapHeight = 220.0; // larger than normal
+    self.locationPickerView.parallaxScrollFactor = 0.3; // little slower than normal.
     
     [self.view addSubview:self.locationPickerView];
 }
@@ -63,6 +63,11 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self performSegueWithIdentifier:@"Second" sender:self];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    cell.contentView.backgroundColor = [UIColor whiteColor];
 }
 
 #pragma mark - LocationPickerViewDelegate

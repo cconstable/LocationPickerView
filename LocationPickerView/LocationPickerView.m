@@ -56,6 +56,8 @@
     _parallaxScrollFactor           = 0.6f;
     _amountToScrollToFullScreenMap  = 110.0f;
     self.autoresizesSubviews        = YES;
+    self.autoresizingMask           = UIViewAutoresizingFlexibleWidth |
+                                      UIViewAutoresizingFlexibleHeight;
 }
 
 

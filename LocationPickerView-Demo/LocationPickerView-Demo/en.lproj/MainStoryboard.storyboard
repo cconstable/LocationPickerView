@@ -31,7 +31,6 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Fz-CR-FNW" customClass="LocationPickerView">
-                                <color key="backgroundColor" red="0.98951690051020413" green="0.93666300792737089" blue="0.79815335029169587" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="tableViewDataSource" destination="3zj-Mx-Qpo" id="ABO-R9-Ysg"/>
                                     <outlet property="tableViewDelegate" destination="3zj-Mx-Qpo" id="uif-YR-Siy"/>
@@ -90,6 +89,8 @@
                 <relationship kind="action" name="expandMapView:"/>
                 <relationship kind="action" name="hideMapView:"/>
                 <relationship kind="action" name="toggleMapView:"/>
+                <relationship kind="outlet" name="delegate"/>
+                <relationship kind="outlet" name="mapViewDelegate"/>
                 <relationship kind="outlet" name="tableViewDataSource"/>
                 <relationship kind="outlet" name="tableViewDelegate"/>
             </relationships>

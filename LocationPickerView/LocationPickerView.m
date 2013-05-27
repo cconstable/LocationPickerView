@@ -90,7 +90,7 @@
         }
         
         if (self.tableViewDidLoadBlock) {
-            [self tableViewDidLoadBlock];
+            self.tableViewDidLoadBlock(self);
         }
     }
     
@@ -118,7 +118,7 @@
         }
         
         if (self.mapViewDidLoadBlock) {
-            [self mapViewDidLoadBlock];
+            self.mapViewDidLoadBlock(self);
         }
     }
     
@@ -167,7 +167,7 @@
     }
     
     if (self.tableViewDidLoadBlock) {
-        [self tableViewDidLoadBlock];
+        self.tableViewDidLoadBlock(self);
     }
 }
 
@@ -180,7 +180,7 @@
     }
     
     if (self.mapViewDidLoadBlock) {
-        [self mapViewDidLoadBlock];
+        self.mapViewDidLoadBlock(self);
     }
 }
 

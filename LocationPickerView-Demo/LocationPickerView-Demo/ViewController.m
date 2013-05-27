@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Christopher Constable. All rights reserved.
 //
 
+#import <MapKit/MapKit.h>
 #import "ViewController.h"
 
 @interface ViewController ()
@@ -30,6 +31,14 @@
     self.locationPickerView.pullToExpandMapEnabled = YES;
     self.locationPickerView.defaultMapHeight = 220.0; // larger than normal
     self.locationPickerView.parallaxScrollFactor = 0.3; // little slower than normal.
+    
+    // Optional setup
+    self.locationPickerView.mapViewDidLoadBlock = ^(LocationPickerView *locationPicker) {
+        locationPicker.mapView.mapType = MKMapTypeStandard;
+    };
+    self.locationPickerView.tableViewDidLoadBlock = ^(LocationPickerView *locationPicker) {
+        locationPicker.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    };
     
     [self.view addSubview:self.locationPickerView];
 }
@@ -61,7 +70,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     [self performSegueWithIdentifier:@"Second" sender:self];
 }
 
@@ -103,5 +112,16 @@
 {
     self.navigationItem.title = @"Map Normal";
 }
+
+- (void)locationPicker:(LocationPickerView *)locationPicker mapViewDidLoad:(MKMapView *)mapView
+{
+    mapView.mapType = MKMapTypeStandard;
+}
+
+- (void)locationPicker:(LocationPickerView *)locationPicker tableViewDidLoad:(UITableView *)tableView
+{
+    tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+}
+
 
 @end

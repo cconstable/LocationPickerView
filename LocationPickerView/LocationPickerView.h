@@ -9,9 +9,12 @@
 
 
 @class MKMapView;
+@class LocationPickerView;
+
 @protocol MKMapViewDelegate;
 @protocol LocationPickerViewDelegate;
-typedef void (^LocationPickerViewCompletionBlock)();
+
+typedef void (^LocationPickerViewCompletionBlock)(LocationPickerView *locationPicker);
 
 
 @interface LocationPickerView : UIView <UIScrollViewDelegate>

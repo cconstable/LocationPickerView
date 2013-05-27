@@ -50,16 +50,31 @@ locationPickerView.pullToExpandMapEnabled = YES;
 locationPickerView.defaultMapHeight = 190.0;
 locationPickerView.parallaxScrollFactor = 0.4; // little slower than normal.
 
+// Optional setup
+self.locationPickerView.mapViewDidLoadBlock = ^(LocationPickerView *locationPicker) {
+    locationPicker.mapView.mapType = MKMapTypeStandard;
+};
+self.locationPickerView.tableViewDidLoadBlock = ^(LocationPickerView *locationPicker) {
+    locationPicker.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+};
+
 [self.view addSubview:self.locationPickerView];
 ```
 
 Of particular use is the `delegate` property which allows you to know when important things are happening (like the map view is about to expand full screen).
+
+NOTE: Don't set the `backgroundColor` property of the table view. Color your cells or the `LocationPickerView` instead.
 
 ## Upcoming Features / Items
 
 * Add map annotations that sync with table view.
 * Add some basic search functionality.
 * Add more map controls (zooming, following user location, etc).
+
+## Known Issues
+
+* Sometimes there is a slight flicker when the map is closed from full-screen. This has to do with how the map's frame is changing.
+* Currently, deselecting a cell with animation doesn't look so good.
 
 ## Contributing
 

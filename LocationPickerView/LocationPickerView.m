@@ -288,20 +288,22 @@
     self.mapView.zoomEnabled = NO;
     [self.tableView.tableHeaderView addGestureRecognizer:self.mapTapGesture];
     
-    [UIView animateWithDuration:0.3
+    // Store the correct tableViewFrame.
+    // Set table view off the bottom of the screen, and animate
+    // back to normal
+    CGRect tempFrame = self.tableView.frame;
+    self.tableView.frame = CGRectMake(0, 480, tempFrame.size.width, tempFrame.size.height);
+    [self insertSubview:self.mapView belowSubview:self.tableView];
+    
+    [UIView animateWithDuration:0.4
                           delay:0.0
                         options:UIViewAnimationOptionCurveEaseOut
                      animations:^{
-                         CGRect newMapFrame = CGRectMake(self.mapView.frame.origin.x,
-                                                         self.mapView.frame.origin.y,
-                                                         self.mapView.frame.size.width,
-                                                         self.defaultMapHeight);
-                         self.mapView.frame = newMapFrame;
+                         self.mapView.frame = self.defaultMapViewFrame;
+                         self.tableView.frame = tempFrame;
                      } completion:^(BOOL finished) {
                          
                          // "Pop" the map view back in
-                         self.mapView.frame = self.defaultMapViewFrame;
-                         [self insertSubview:self.mapView belowSubview:self.tableView];
                          [self insertSubview:self.closeMapButton aboveSubview:self.mapView];
                          self.isMapAnimating = NO;
                          _isMapFullScreen = NO;

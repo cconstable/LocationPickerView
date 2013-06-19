@@ -73,7 +73,6 @@ NOTE: Don't set the `backgroundColor` property of the table view. Color your cel
 
 ## Known Issues
 
-* Sometimes there is a slight flicker when the map is closed from full-screen. This has to do with how the map's frame is changing.
 * Currently, deselecting a cell with animation doesn't look so good.
 
 ## Contributing

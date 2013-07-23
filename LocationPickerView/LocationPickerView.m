@@ -241,7 +241,10 @@
     
     self.isMapAnimating = YES;
     [self.tableView.tableHeaderView removeGestureRecognizer:self.mapTapGesture];
-    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    if (self.tableView.numberOfSections) {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
+    
     CGRect newMapFrame = self.mapView.frame;
     newMapFrame = CGRectMake(self.defaultMapViewFrame.origin.x,
                              self.defaultMapViewFrame.origin.y + (self.defaultMapHeight * self.parallaxScrollFactor),

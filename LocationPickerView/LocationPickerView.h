@@ -75,9 +75,11 @@ typedef void (^LocationPickerViewCompletionBlock)(LocationPickerView *locationPi
 @property (nonatomic, copy) LocationPickerViewCompletionBlock mapViewDidLoadBlock;
 
 /** Makes the map view full screen. */
+- (void)expandMapView:(id)sender animated:(BOOL)animated;
 - (IBAction)expandMapView:(id)sender;
 
 /** Shrinks the map view back down to it's default height. */
+- (void)hideMapView:(id)sender animated:(BOOL)animated;
 - (IBAction)hideMapView:(id)sender;
 
 /** Expands or shrinks the map view. */

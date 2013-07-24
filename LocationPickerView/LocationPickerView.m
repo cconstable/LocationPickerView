@@ -232,17 +232,16 @@
 }
 
 #pragma mark - Public Methods
-
-- (void)expandMapView:(id)sender
+- (void)expandMapView:(id)sender animated:(BOOL)animated
 {
     if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewWillExpand:)]) {
         [self.delegate locationPicker:self mapViewWillExpand:self.mapView];
     }
     
-    self.isMapAnimating = YES;
+    self.isMapAnimating = animated;
     [self.tableView.tableHeaderView removeGestureRecognizer:self.mapTapGesture];
     if (self.tableView.numberOfSections) {
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:animated];
     }
     
     CGRect newMapFrame = self.mapView.frame;
@@ -255,28 +254,52 @@
     [self bringSubviewToFront:self.mapView];
     [self insertSubview:self.closeMapButton aboveSubview:self.mapView];
     
-    [UIView animateWithDuration:0.3
-                          delay:0.0
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         self.mapView.frame = self.bounds;
-                     } completion:^(BOOL finished) {
-                         self.isMapAnimating = NO;
-                         _isMapFullScreen = YES;
-                         self.mapView.scrollEnabled = YES;
-                         self.mapView.zoomEnabled = YES;
-                         
-                         if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewDidExpand:)]) {
-                             [self.delegate locationPicker:self mapViewDidExpand:self.mapView];
-                         }
-                         
-                         if (self.shouldCreateHideMapButton) {
-                             [self showCloseMapButton];
-                         }
-                     }];
+    if(animated == YES)
+    {
+        [UIView animateWithDuration:0.3
+                              delay:0.0
+                            options:UIViewAnimationOptionCurveEaseOut
+                         animations:^{
+                             self.mapView.frame = self.bounds;
+                         } completion:^(BOOL finished) {
+                             self.isMapAnimating = NO;
+                             _isMapFullScreen = YES;
+                             self.mapView.scrollEnabled = YES;
+                             self.mapView.zoomEnabled = YES;
+                             
+                             if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewDidExpand:)]) {
+                                 [self.delegate locationPicker:self mapViewDidExpand:self.mapView];
+                             }
+                             
+                             if (self.shouldCreateHideMapButton) {
+                                 [self showCloseMapButton];
+                             }
+                         }];
+    }
+    else
+    {
+        self.mapView.frame = self.bounds;
+        self.isMapAnimating = NO;
+        _isMapFullScreen = YES;
+        self.mapView.scrollEnabled = YES;
+        self.mapView.zoomEnabled = YES;
+        
+        if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewDidExpand:)]) {
+            [self.delegate locationPicker:self mapViewDidExpand:self.mapView];
+        }
+        
+        if (self.shouldCreateHideMapButton) {
+            [self showCloseMapButton];
+        }
+    }
 }
 
-- (void)hideMapView:(id)sender
+- (void)expandMapView:(id)sender
+{
+    [self expandMapView:sender animated:YES];
+}
+
+- (void)hideMapView:(id)sender animated:(BOOL)animated
 {
     if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewWillBeHidden:)]) {
         [self.delegate locationPicker:self mapViewWillBeHidden:self.mapView];
@@ -286,7 +309,7 @@
         [self hideCloseMapButton];
     }
     
-    self.isMapAnimating = YES;
+    self.isMapAnimating = animated;
     self.mapView.scrollEnabled = NO;
     self.mapView.zoomEnabled = NO;
     [self.tableView.tableHeaderView addGestureRecognizer:self.mapTapGesture];
@@ -298,23 +321,45 @@
     self.tableView.frame = CGRectMake(0, 480, tempFrame.size.width, tempFrame.size.height);
     [self insertSubview:self.mapView belowSubview:self.tableView];
     
-    [UIView animateWithDuration:0.4
-                          delay:0.0
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         self.mapView.frame = self.defaultMapViewFrame;
-                         self.tableView.frame = tempFrame;
-                     } completion:^(BOOL finished) {
-                         
-                         // "Pop" the map view back in
-                         [self insertSubview:self.closeMapButton aboveSubview:self.mapView];
-                         self.isMapAnimating = NO;
-                         _isMapFullScreen = NO;
-                         
-                         if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewWasHidden:)]) {
-                             [self.delegate locationPicker:self mapViewWasHidden:self.mapView];
-                         }
-                     }];
+    if(animated == YES)
+    {
+        [UIView animateWithDuration:0.4
+                              delay:0.0
+                            options:UIViewAnimationOptionCurveEaseOut
+                         animations:^{
+                             self.mapView.frame = self.defaultMapViewFrame;
+                             self.tableView.frame = tempFrame;
+                         } completion:^(BOOL finished) {
+                             
+                             // "Pop" the map view back in
+                             [self insertSubview:self.closeMapButton aboveSubview:self.mapView];
+                             self.isMapAnimating = NO;
+                             _isMapFullScreen = NO;
+                             
+                             if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewWasHidden:)]) {
+                                 [self.delegate locationPicker:self mapViewWasHidden:self.mapView];
+                             }
+                         }];
+    }
+    else
+    {
+        self.mapView.frame = self.defaultMapViewFrame;
+        self.tableView.frame = tempFrame;
+
+        // "Pop" the map view back in
+        [self insertSubview:self.closeMapButton aboveSubview:self.mapView];
+        self.isMapAnimating = NO;
+        _isMapFullScreen = NO;
+        
+        if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewWasHidden:)]) {
+            [self.delegate locationPicker:self mapViewWasHidden:self.mapView];
+        }
+    }
+}
+
+- (void)hideMapView:(id)sender
+{
+    [self hideMapView:sender animated:YES];
 }
 
 - (void)toggleMapView:(id)sender

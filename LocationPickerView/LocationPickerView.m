@@ -107,7 +107,7 @@
                                               self.tableView.frame.size.width,
                                               self.defaultMapHeight + (self.defaultMapHeight * self.parallaxScrollFactor * 4));
         _mapView = [[MKMapView alloc] initWithFrame:self.defaultMapViewFrame];
-        self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.mapView.scrollEnabled = NO;
         self.mapView.zoomEnabled = NO;
         self.mapView.delegate = self.mapViewDelegate;

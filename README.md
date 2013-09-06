@@ -49,7 +49,7 @@ locationPickerView.shouldCreateHideMapButton = YES;
 locationPickerView.pullToExpandMapEnabled = YES;
 locationPickerView.defaultMapHeight = 190.0;
 locationPickerView.parallaxScrollFactor = 0.4; // little slower than normal.
-self.locationPickerView.backgroundViewColor = [UIColor yellowColor]; //set color to the tableView background without the map
+locationPickerView.backgroundViewColor = [UIColor yellowColor]; //set color to the tableView background without the map
 
 // Optional setup
 self.locationPickerView.mapViewDidLoadBlock = ^(LocationPickerView *locationPicker) {

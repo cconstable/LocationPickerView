@@ -56,6 +56,12 @@ typedef void (^LocationPickerViewCompletionBlock)(LocationPickerView *locationPi
 /** Table view that sits below the map. */
 @property (nonatomic, strong) UITableView *tableView;
 
+/** The view to the tableview background view. */
+@property (nonatomic, strong) UIView *backgroundView;
+
+/** The color of the backgroundView */
+@property (nonatomic, strong) UIColor *backgroundViewColor;
+
 /** This UITableViewDataSource is forwarded to the LocationPickers's
  UITableView when it is created. */
 @property (nonatomic, weak) IBOutlet id<UITableViewDataSource> tableViewDataSource;

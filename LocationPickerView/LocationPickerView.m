@@ -58,6 +58,7 @@
     self.autoresizesSubviews        = YES;
     self.autoresizingMask           = UIViewAutoresizingFlexibleWidth |
                                       UIViewAutoresizingFlexibleHeight;
+    self.backgroundViewColor = [UIColor clearColor];
 }
 
 - (void)dealloc
@@ -129,6 +130,16 @@
         self.mapTapGesture.cancelsTouchesInView = YES;
         self.mapTapGesture.delaysTouchesBegan = NO;
         [self.tableView.tableHeaderView addGestureRecognizer:self.mapTapGesture];
+    }
+    
+    // Add the background tableView
+    if (!self.backgroundView) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0, self.defaultMapHeight,
+                                                                self.tableView.frame.size.width,
+                                                                self.tableView.frame.size.height - self.defaultMapHeight)];
+        view.backgroundColor = self.backgroundViewColor;
+        self.backgroundView = view;
+        [self.tableView insertSubview:self.backgroundView atIndex:0];
     }
 }
 

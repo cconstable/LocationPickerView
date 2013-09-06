@@ -91,6 +91,9 @@ typedef void (^LocationPickerViewCompletionBlock)(LocationPickerView *locationPi
 /** Expands or shrinks the map view. */
 - (IBAction)toggleMapView:(id)sender;
 
+/** Set custom close button map */
+- (void)setCustomCloseButton:(UIButton *)closeButton;
+
 @end
 
 

@@ -195,6 +195,14 @@
     }
 }
 
+- (void)setCustomCloseButton:(UIButton *)closeButton{
+    self.closeMapButton = closeButton;
+    [self.closeMapButton addTarget:self action:@selector(hideMapView:) forControlEvents:UIControlEventTouchUpInside];
+    self.closeMapButton.hidden = YES;
+    
+    [self insertSubview:self.closeMapButton aboveSubview:self.mapView];
+}
+
 #pragma mark - Internal Methods
 
 - (void)mapWasTapped:(id)sender

@@ -58,6 +58,7 @@
     self.autoresizesSubviews        = YES;
     self.autoresizingMask           = UIViewAutoresizingFlexibleWidth |
                                       UIViewAutoresizingFlexibleHeight;
+    self.backgroundViewColor = [UIColor clearColor];
 }
 
 - (void)dealloc
@@ -130,6 +131,16 @@
         self.mapTapGesture.delaysTouchesBegan = NO;
         [self.tableView.tableHeaderView addGestureRecognizer:self.mapTapGesture];
     }
+    
+    // Add the background tableView
+    if (!self.backgroundView) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0, self.defaultMapHeight,
+                                                                self.tableView.frame.size.width,
+                                                                self.tableView.frame.size.height - self.defaultMapHeight)];
+        view.backgroundColor = self.backgroundViewColor;
+        self.backgroundView = view;
+        [self.tableView insertSubview:self.backgroundView atIndex:0];
+    }
 }
 
 - (void)setTableViewDataSource:(id<UITableViewDataSource>)tableViewDataSource
@@ -182,6 +193,14 @@
     if (self.mapViewDidLoadBlock) {
         self.mapViewDidLoadBlock(self);
     }
+}
+
+- (void)setCustomCloseButton:(UIButton *)closeButton{
+    self.closeMapButton = closeButton;
+    [self.closeMapButton addTarget:self action:@selector(hideMapView:) forControlEvents:UIControlEventTouchUpInside];
+    self.closeMapButton.hidden = YES;
+    
+    [self insertSubview:self.closeMapButton aboveSubview:self.mapView];
 }
 
 #pragma mark - Internal Methods

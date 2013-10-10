@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="r3S-JW-2Gv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="r3S-JW-2Gv">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
+        <deployment defaultVersion="1552" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <scenes>
         <!--View Controller - Demo-->
         <scene sceneID="5">
             <objects>
                 <viewController id="2" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tjX-3E-Dye"/>
+                        <viewControllerLayoutGuide type="bottom" id="8R5-kW-dnY"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="3">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -26,29 +31,35 @@
         <scene sceneID="Waw-eD-2SK">
             <objects>
                 <viewController id="3zj-Mx-Qpo" customClass="SecondViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="HSE-dv-heT"/>
+                        <viewControllerLayoutGuide type="bottom" id="UJ8-5R-V5c"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="64K-X3-OWC">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Fz-CR-FNW" customClass="LocationPickerView">
+                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
                                 <connections>
                                     <outlet property="tableViewDataSource" destination="3zj-Mx-Qpo" id="ABO-R9-Ysg"/>
                                     <outlet property="tableViewDelegate" destination="3zj-Mx-Qpo" id="uif-YR-Siy"/>
                                 </connections>
                             </view>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="hFW-Lf-hek">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="hFW-Lf-hek" firstAttribute="trailing" secondItem="64K-X3-OWC" secondAttribute="trailing" type="default" id="6eQ-UK-eF4"/>
-                            <constraint firstItem="hFW-Lf-hek" firstAttribute="leading" secondItem="64K-X3-OWC" secondAttribute="leading" type="default" id="A4R-C0-jNF"/>
-                            <constraint firstItem="6Fz-CR-FNW" firstAttribute="bottom" secondItem="64K-X3-OWC" secondAttribute="bottom" type="default" id="Oyf-Wb-gl3"/>
-                            <constraint firstItem="hFW-Lf-hek" firstAttribute="top" secondItem="64K-X3-OWC" secondAttribute="top" type="default" id="PYh-Jk-FWe"/>
-                            <constraint firstItem="6Fz-CR-FNW" firstAttribute="trailing" secondItem="64K-X3-OWC" secondAttribute="trailing" type="default" id="dbO-zt-n1N"/>
-                            <constraint firstItem="6Fz-CR-FNW" firstAttribute="leading" secondItem="64K-X3-OWC" secondAttribute="leading" type="default" id="e0L-IT-xu2"/>
-                            <constraint firstItem="6Fz-CR-FNW" firstAttribute="top" secondItem="hFW-Lf-hek" secondAttribute="bottom" type="default" id="l0Z-7H-HzK"/>
+                            <constraint firstItem="hFW-Lf-hek" firstAttribute="trailing" secondItem="64K-X3-OWC" secondAttribute="trailing" id="6eQ-UK-eF4"/>
+                            <constraint firstItem="hFW-Lf-hek" firstAttribute="leading" secondItem="64K-X3-OWC" secondAttribute="leading" id="A4R-C0-jNF"/>
+                            <constraint firstItem="6Fz-CR-FNW" firstAttribute="bottom" secondItem="64K-X3-OWC" secondAttribute="bottom" id="Oyf-Wb-gl3"/>
+                            <constraint firstItem="hFW-Lf-hek" firstAttribute="top" secondItem="64K-X3-OWC" secondAttribute="top" id="PYh-Jk-FWe"/>
+                            <constraint firstItem="6Fz-CR-FNW" firstAttribute="trailing" secondItem="64K-X3-OWC" secondAttribute="trailing" id="dbO-zt-n1N"/>
+                            <constraint firstItem="6Fz-CR-FNW" firstAttribute="leading" secondItem="64K-X3-OWC" secondAttribute="leading" id="e0L-IT-xu2"/>
+                            <constraint firstItem="6Fz-CR-FNW" firstAttribute="top" secondItem="hFW-Lf-hek" secondAttribute="bottom" id="l0Z-7H-HzK"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Demo" id="hij-S7-QZ4">
@@ -82,29 +93,6 @@
             <point key="canvasLocation" x="377" y="60"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="LocationPickerView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LocationPickerView.h"/>
-            <relationships>
-                <relationship kind="action" name="expandMapView:"/>
-                <relationship kind="action" name="hideMapView:"/>
-                <relationship kind="action" name="toggleMapView:"/>
-                <relationship kind="outlet" name="delegate"/>
-                <relationship kind="outlet" name="mapViewDelegate"/>
-                <relationship kind="outlet" name="tableViewDataSource"/>
-                <relationship kind="outlet" name="tableViewDelegate"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="SecondViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SecondViewController.h"/>
-        </class>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

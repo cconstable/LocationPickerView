@@ -14,7 +14,7 @@
 @protocol MKMapViewDelegate;
 @protocol LocationPickerViewDelegate;
 
-typedef void (^LocationPickerViewCompletionBlock)(LocationPickerView *locationPicker);
+typedef void (^LocationPickerViewBlock)(LocationPickerView *locationPicker);
 
 
 @interface LocationPickerView : UIView <UIScrollViewDelegate>
@@ -75,10 +75,15 @@ typedef void (^LocationPickerViewCompletionBlock)(LocationPickerView *locationPi
 @property (nonatomic, weak) IBOutlet id<MKMapViewDelegate> mapViewDelegate;
 
 /** Called after the tableView has been loaded. Allows for additional setup. */
-@property (nonatomic, copy) LocationPickerViewCompletionBlock tableViewDidLoadBlock;
+@property (nonatomic, copy) LocationPickerViewBlock tableViewDidLoadBlock;
 
-/** Called after the tableView has been loaded. Allows for additional setup. */
-@property (nonatomic, copy) LocationPickerViewCompletionBlock mapViewDidLoadBlock;
+/** Called after the mapView has been loaded. Allows for additional setup. */
+@property (nonatomic, copy) LocationPickerViewBlock mapViewDidLoadBlock;
+
+@property (nonatomic, copy) LocationPickerViewBlock mapViewWillExpand;
+@property (nonatomic, copy) LocationPickerViewBlock mapViewDidExpand;
+@property (nonatomic, copy) LocationPickerViewBlock mapViewWillBeHidden;
+@property (nonatomic, copy) LocationPickerViewBlock mapViewWasHidden;
 
 /** Makes the map view full screen. */
 - (void)expandMapView:(id)sender animated:(BOOL)animated;

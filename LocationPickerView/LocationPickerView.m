@@ -256,6 +256,9 @@
     if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewWillExpand:)]) {
         [self.delegate locationPicker:self mapViewWillExpand:self.mapView];
     }
+    if (self.mapViewWillExpand) {
+        self.mapViewWillExpand(self);
+    }
     
     self.isMapAnimating = animated;
     [self.tableView.tableHeaderView removeGestureRecognizer:self.mapTapGesture];
@@ -288,6 +291,9 @@
                              
                              if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewDidExpand:)]) {
                                  [self.delegate locationPicker:self mapViewDidExpand:self.mapView];
+                             }
+                             if (self.mapViewDidExpand) {
+                                 self.mapViewDidExpand(self);
                              }
                              
                              if (self.shouldCreateHideMapButton) {
@@ -323,6 +329,9 @@
     if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewWillBeHidden:)]) {
         [self.delegate locationPicker:self mapViewWillBeHidden:self.mapView];
     }
+    if (self.mapViewWillBeHidden) {
+        self.mapViewWillBeHidden(self);
+    }
     
     if (self.shouldCreateHideMapButton) {
         [self hideCloseMapButton];
@@ -357,6 +366,9 @@
                              
                              if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewWasHidden:)]) {
                                  [self.delegate locationPicker:self mapViewWasHidden:self.mapView];
+                             }
+                             if (self.mapViewWasHidden) {
+                                 self.mapViewWasHidden(self);
                              }
                          }];
     }

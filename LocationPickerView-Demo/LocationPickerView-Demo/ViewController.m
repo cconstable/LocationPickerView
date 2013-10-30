@@ -29,8 +29,8 @@
     self.locationPickerView.delegate = self;
     self.locationPickerView.shouldCreateHideMapButton = YES;
     self.locationPickerView.pullToExpandMapEnabled = YES;
-    self.locationPickerView.defaultMapHeight = 220.0; // larger than normal
-    self.locationPickerView.parallaxScrollFactor = 0.3; // little slower than normal.
+    self.locationPickerView.defaultMapHeight = 220.0;           // larger than normal
+    self.locationPickerView.parallaxScrollFactor = 0.3;         // little slower than normal.
     
     // Optional setup
     self.locationPickerView.mapViewDidLoadBlock = ^(LocationPickerView *locationPicker) {

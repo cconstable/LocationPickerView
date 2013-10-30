@@ -250,8 +250,15 @@
     }
 }
 
-#pragma mark - Public Methods
-- (void)expandMapView:(id)sender animated:(BOOL)animated
+#pragma mark - Expanding / Shrinking Map Methods
+
+- (void)expandMapView:(id)sender
+{
+    [self expandMapView:sender animated:YES];
+}
+
+- (void)expandMapView:(id)sender
+             animated:(BOOL)animated
 {
     if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewWillExpand:)]) {
         [self.delegate locationPicker:self mapViewWillExpand:self.mapView];
@@ -284,47 +291,42 @@
                          animations:^{
                              self.mapView.frame = self.bounds;
                          } completion:^(BOOL finished) {
-                             self.isMapAnimating = NO;
-                             _isMapFullScreen = YES;
-                             self.mapView.scrollEnabled = YES;
-                             self.mapView.zoomEnabled = YES;
-                             
-                             if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewDidExpand:)]) {
-                                 [self.delegate locationPicker:self mapViewDidExpand:self.mapView];
-                             }
-                             if (self.mapViewDidExpand) {
-                                 self.mapViewDidExpand(self);
-                             }
-                             
-                             if (self.shouldCreateHideMapButton) {
-                                 [self showCloseMapButton];
-                             }
+                             [self mapViewDidFinishExpanding];
                          }];
     }
     else
     {
         self.mapView.frame = self.bounds;
-        self.isMapAnimating = NO;
-        _isMapFullScreen = YES;
-        self.mapView.scrollEnabled = YES;
-        self.mapView.zoomEnabled = YES;
-        
-        if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewDidExpand:)]) {
-            [self.delegate locationPicker:self mapViewDidExpand:self.mapView];
-        }
-        
-        if (self.shouldCreateHideMapButton) {
-            [self showCloseMapButton];
-        }
+        [self mapViewDidFinishExpanding];
     }
 }
 
-- (void)expandMapView:(id)sender
+- (void)mapViewDidFinishExpanding
 {
-    [self expandMapView:sender animated:YES];
+    self.isMapAnimating = NO;
+    _isMapFullScreen = YES;
+    self.mapView.scrollEnabled = YES;
+    self.mapView.zoomEnabled = YES;
+    
+    if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewDidExpand:)]) {
+        [self.delegate locationPicker:self mapViewDidExpand:self.mapView];
+    }
+    if (self.mapViewDidExpand) {
+        self.mapViewDidExpand(self);
+    }
+    
+    if (self.shouldCreateHideMapButton) {
+        [self showCloseMapButton];
+    }
 }
 
-- (void)hideMapView:(id)sender animated:(BOOL)animated
+- (void)hideMapView:(id)sender
+{
+    [self hideMapView:sender animated:YES];
+}
+
+- (void)hideMapView:(id)sender
+           animated:(BOOL)animated
 {
     if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewWillBeHidden:)]) {
         [self.delegate locationPicker:self mapViewWillBeHidden:self.mapView];
@@ -358,39 +360,29 @@
                              self.mapView.frame = self.defaultMapViewFrame;
                              self.tableView.frame = tempFrame;
                          } completion:^(BOOL finished) {
-                             
-                             // "Pop" the map view back in
-                             [self insertSubview:self.closeMapButton aboveSubview:self.mapView];
-                             self.isMapAnimating = NO;
-                             _isMapFullScreen = NO;
-                             
-                             if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewWasHidden:)]) {
-                                 [self.delegate locationPicker:self mapViewWasHidden:self.mapView];
-                             }
-                             if (self.mapViewWasHidden) {
-                                 self.mapViewWasHidden(self);
-                             }
+                             [self mapViewDidFinishHiding];
                          }];
     }
     else
     {
         self.mapView.frame = self.defaultMapViewFrame;
         self.tableView.frame = tempFrame;
-
-        // "Pop" the map view back in
-        [self insertSubview:self.closeMapButton aboveSubview:self.mapView];
-        self.isMapAnimating = NO;
-        _isMapFullScreen = NO;
-        
-        if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewWasHidden:)]) {
-            [self.delegate locationPicker:self mapViewWasHidden:self.mapView];
-        }
+        [self mapViewDidFinishHiding];
     }
 }
 
-- (void)hideMapView:(id)sender
+- (void)mapViewDidFinishHiding
 {
-    [self hideMapView:sender animated:YES];
+    [self insertSubview:self.closeMapButton aboveSubview:self.mapView];
+    self.isMapAnimating = NO;
+    _isMapFullScreen = NO;
+    
+    if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewWasHidden:)]) {
+        [self.delegate locationPicker:self mapViewWasHidden:self.mapView];
+    }
+    if (self.mapViewWasHidden) {
+        self.mapViewWasHidden(self);
+    }
 }
 
 - (void)toggleMapView:(id)sender

@@ -80,6 +80,10 @@
         self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
         UIViewAutoresizingFlexibleHeight;
         
+        if ([self.delegate respondsToSelector:@selector(setAutomaticallyAdjustsScrollViewInsets:)]) {
+            self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(64.0, 0.0, 0.0, 0.0);
+        }
+        
         // Add scroll view KVO
         void *context = (__bridge void *)self;
         [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:context];

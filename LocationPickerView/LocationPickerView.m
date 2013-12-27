@@ -215,7 +215,11 @@
 {
     if (!self.closeMapButton) {
         self.closeMapButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.closeMapButton.frame = CGRectMake(14.0, 14.0, 42.0, 42.0);
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0){
+            self.closeMapButton.frame = CGRectMake(14.0, 74.0, 42.0, 42.0);
+        }else{
+            self.closeMapButton.frame = CGRectMake(14.0, 14.0, 42.0, 42.0);
+        }
         [self.closeMapButton setImage:[UIImage imageForXIcon] forState:UIControlStateNormal];
         [self.closeMapButton setImage:[UIImage imageForXIcon] forState:UIControlStateHighlighted];
         [self.closeMapButton addTarget:self action:@selector(hideMapView:) forControlEvents:UIControlEventTouchUpInside];

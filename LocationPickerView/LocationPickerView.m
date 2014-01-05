@@ -143,7 +143,7 @@
                                                                 self.tableView.frame.size.height - self.defaultMapHeight)];
         view.backgroundColor = self.backgroundViewColor;
         self.backgroundView = view;
-		self.backgroundView.userInteractionEnabled=NO;
+        self.backgroundView.userInteractionEnabled=NO;
         [self.tableView insertSubview:self.backgroundView atIndex:0];
     }
 }

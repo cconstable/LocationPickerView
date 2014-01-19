@@ -271,7 +271,7 @@
     
     self.isMapAnimating = animated;
     [self.tableView.tableHeaderView removeGestureRecognizer:self.mapTapGesture];
-    if (self.tableView.numberOfSections) {
+    if (self.tableView.numberOfSections && [self.tableView numberOfRowsInSection:0]) {
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:animated];
     }
     

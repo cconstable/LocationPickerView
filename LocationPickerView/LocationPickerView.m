@@ -19,7 +19,7 @@
  mapViewDidExpand: method. Allows the user to shrink the map. */
 @property (nonatomic, strong) UIButton *closeMapButton;
 @property (nonatomic, readwrite) CGPoint closeButtonPoint;
-
+- (void)didTapCloseMapViewButton:(id)sender;
 @end
 
 @implementation LocationPickerView
@@ -217,7 +217,7 @@
 - (void)setCustomCloseButton:(UIButton *)closeButton atPoint:(CGPoint)buttonPoint{
     self.closeMapButton = closeButton;
     self.closeButtonPoint = buttonPoint;
-    [self.closeMapButton addTarget:self action:@selector(hideMapView:) forControlEvents:UIControlEventTouchUpInside];
+    [self.closeMapButton addTarget:self action:@selector(didTapCloseMapViewButton:) forControlEvents:UIControlEventTouchUpInside];
     self.closeMapButton.hidden = YES;
     
     [self insertSubview:self.closeMapButton aboveSubview:self.mapView];
@@ -237,7 +237,7 @@
         self.closeMapButton.frame = CGRectMake(self.closeButtonPoint.x, self.closeButtonPoint.y, 42.0, 42.0);
         [self.closeMapButton setImage:[UIImage imageForXIcon] forState:UIControlStateNormal];
         [self.closeMapButton setImage:[UIImage imageForXIcon] forState:UIControlStateHighlighted];
-        [self.closeMapButton addTarget:self action:@selector(hideMapView:) forControlEvents:UIControlEventTouchUpInside];
+        [self.closeMapButton addTarget:self action:@selector(didTapCloseMapViewButton:) forControlEvents:UIControlEventTouchUpInside];
         self.closeMapButton.hidden = YES;
         
         [self insertSubview:self.closeMapButton aboveSubview:self.mapView];
@@ -347,16 +347,22 @@
     [self expandMapView:sender animated:YES];
 }
 
+- (void)didTapCloseMapViewButton:(id)sender
+{
+    // override default close map button action if block is set
+    if(self.mapCloseButtonTapped)
+    {
+        self.mapCloseButtonTapped(self);
+    }
+    else
+    {
+        // default action for close map view button
+        [self hideMapView:self];
+    }
+}
+
 - (void)hideMapView:(id)sender animated:(BOOL)animated
 {
-    if([sender isKindOfClass:[UIButton class]])
-    {
-        if(self.mapCloseButtonTapped)
-        {
-            self.mapCloseButtonTapped(self);
-        }
-    }
-
     if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewWillBeHidden:)]) {
         [self.delegate locationPicker:self mapViewWillBeHidden:self.mapView];
     }

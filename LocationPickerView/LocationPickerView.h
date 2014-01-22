@@ -84,6 +84,7 @@ typedef void (^LocationPickerViewBlock)(LocationPickerView *locationPicker);
 @property (nonatomic, copy) LocationPickerViewBlock mapViewDidExpand;
 @property (nonatomic, copy) LocationPickerViewBlock mapViewWillBeHidden;
 @property (nonatomic, copy) LocationPickerViewBlock mapViewWasHidden;
+@property (nonatomic, copy) LocationPickerViewBlock mapCloseButtonTapped;
 
 /** Makes the map view full screen. */
 - (void)expandMapView:(id)sender animated:(BOOL)animated;

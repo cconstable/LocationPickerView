@@ -349,6 +349,14 @@
 
 - (void)hideMapView:(id)sender animated:(BOOL)animated
 {
+    if([sender isKindOfClass:[UIButton class]])
+    {
+        if(self.mapCloseButtonTapped)
+        {
+            self.mapCloseButtonTapped(self);
+        }
+    }
+
     if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewWillBeHidden:)]) {
         [self.delegate locationPicker:self mapViewWillBeHidden:self.mapView];
     }

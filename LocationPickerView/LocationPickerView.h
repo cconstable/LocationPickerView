@@ -99,6 +99,9 @@ typedef void (^LocationPickerViewBlock)(LocationPickerView *locationPicker);
 /** Set custom close button map */
 - (void)setCustomCloseButton:(UIButton *)closeButton;
 
+/** Set custom close button map at x/y point */
+- (void)setCustomCloseButton:(UIButton *)closeButton atPoint:(CGPoint)buttonPoint;
+
 @end
 
 

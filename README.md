@@ -9,10 +9,19 @@ This view is useful for when a list of scrollable, selectable locations need to 
     <img src="github-images/location-picker.gif"/></td>
 </p>
 
+## Install
+
+### Cocoapods
+
+`pod 'LocationPickerView', '~> 1.2.0'`
+
+### Manual
+
+Drop the **LocationPickerView** folder into your app. 
+
 ## Usage
 
-1. Drop the **LocationPickerView** folder into your app. 
-2. In the view controlller you'd like to use the location picker in, add the following lines to `viewDidLoad`:
+In the view controlller you'd like to use the location picker in, add the following lines to `viewDidLoad`:
 
 ```
 LocationPickerView *locationPickerView = [[LocationPickerView alloc] initWithFrame:self.view.bounds];

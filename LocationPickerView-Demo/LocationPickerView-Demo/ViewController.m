@@ -42,6 +42,15 @@
         locationPicker.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     };
     
+    // set custom close button
+    /*
+    UIButton *customCloseButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [customCloseButton setTitle:@"close" forState:UIControlStateNormal];
+    [customCloseButton setBackgroundColor:[UIColor blueColor]];
+    [customCloseButton setFrame:CGRectMake(0, 0, 80, 80)];
+    [self.locationPickerView setCustomCloseButton:customCloseButton atPoint:CGPointMake(100, 400)];
+    */
+
     [self.view addSubview:self.locationPickerView];
 }
 

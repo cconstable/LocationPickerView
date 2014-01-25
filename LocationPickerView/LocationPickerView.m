@@ -55,6 +55,7 @@
     _defaultMapHeight               = 130.0f;
     _parallaxScrollFactor           = 0.6f;
     _amountToScrollToFullScreenMap  = 110.0f;
+    _shouldAutoCenterOnUserLocation = NO;
     self.autoresizesSubviews        = YES;
     self.autoresizingMask           = UIViewAutoresizingFlexibleWidth |
                                       UIViewAutoresizingFlexibleHeight;
@@ -65,6 +66,7 @@
 {
     void *context = (__bridge void *)self;
     [self.tableView removeObserver:self forKeyPath:@"contentOffset" context:context];
+    [self.mapView.userLocation removeObserver:self forKeyPath:@"location" context:context];
 }
 
 
@@ -80,9 +82,11 @@
         self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
         UIViewAutoresizingFlexibleHeight;
         
-        // Add scroll view KVO
         void *context = (__bridge void *)self;
-        [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:context];
+        [self.tableView addObserver:self
+                         forKeyPath:@"contentOffset"
+                            options:NSKeyValueObservingOptionNew
+                            context:context];
         
         [self addSubview:self.tableView];
         
@@ -113,6 +117,17 @@
         self.mapView.zoomEnabled = NO;
         self.mapView.delegate = self.mapViewDelegate;
         [self insertSubview:self.mapView belowSubview:self.tableView];
+        
+        void *context = (__bridge void *)self;
+        [self.mapView.userLocation addObserver:self
+                                    forKeyPath:@"location"
+                                       options:NSKeyValueObservingOptionNew
+                                       context:context];
+        
+        [self.mapView addObserver:self
+                       forKeyPath:@"userTrackingMode"
+                          options:NSKeyValueObservingOptionNew
+                          context:context];
         
         if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewDidLoad:)]) {
             [self.delegate locationPicker:self mapViewDidLoad:self.mapView];
@@ -308,6 +323,8 @@
     self.mapView.scrollEnabled = YES;
     self.mapView.zoomEnabled = YES;
     
+    [self centerMapOnUserLocationIfNecessary];
+    
     if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewDidExpand:)]) {
         [self.delegate locationPicker:self mapViewDidExpand:self.mapView];
     }
@@ -377,6 +394,8 @@
     self.isMapAnimating = NO;
     _isMapFullScreen = NO;
     
+    [self centerMapOnUserLocationIfNecessary];
+    
     if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewWasHidden:)]) {
         [self.delegate locationPicker:self mapViewWasHidden:self.mapView];
     }
@@ -397,6 +416,15 @@
     }
 }
 
+- (void)centerMapOnUserLocationIfNecessary
+{
+    if (self.shouldAutoCenterOnUserLocation && self.mapView.userTrackingMode) {
+        MKCoordinateRegion centerCoordinate = MKCoordinateRegionMake(self.mapView.userLocation.coordinate, self.mapView.region.span);
+        [self.mapView setRegion:centerCoordinate
+                       animated:YES];
+    }
+}
+
 #pragma mark - KVO Methods
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -413,7 +441,9 @@
     if ((object == self.tableView) &&
         ([keyPath isEqualToString:@"contentOffset"] == YES)) {
         [self scrollViewDidScrollWithOffset:self.tableView.contentOffset.y];
-        return;
+    }
+    else if ((object == self.mapView) &&
+        ([keyPath isEqualToString:@"userTrackingMode"] == YES)) {
     }
 }
 

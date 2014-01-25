@@ -5,12 +5,9 @@ MKMapView + UITableView + Parallax scrolling. Provides a framework for building 
 
 This view is useful for when a list of scrollable, selectable locations need to be shown along with their locations on map. A search bar can easily be added for searching or filtering.
 
-<table>
-  <tr>
-    <td><img src="https://raw.github.com/mstrchrstphr/LocationPickerView/master/github-images/01.png"/></td>
-    <td><img src="https://raw.github.com/mstrchrstphr/LocationPickerView/master/github-images/02.png"/></td>
-  </tr>
-</table>
+<p align="center">
+    <img src="location-picker.gif"/></td>
+</p>
 
 ## Usage
 
@@ -66,7 +63,7 @@ Of particular use is the `delegate` property which allows you to know when impor
 
 NOTE: Don't set the `backgroundColor` property of the table view. Color your cells or the `LocationPickerView` instead.
 
-## Upcoming Features / Items
+## Feature Wishlist
 
 * Add map annotations that sync with table view.
 * Add some basic search functionality.
@@ -74,7 +71,7 @@ NOTE: Don't set the `backgroundColor` property of the table view. Color your cel
 
 ## Known Issues
 
-* Currently, deselecting a cell with animation doesn't look so good.
+* Currently, deselecting a cell with animation doesn't look so good. You'll need to animate this yourself but hey, you can make it fancy!
 
 ## Contributing
 

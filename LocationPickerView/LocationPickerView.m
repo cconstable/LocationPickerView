@@ -60,14 +60,8 @@
     self.autoresizesSubviews        = YES;
     self.autoresizingMask           = UIViewAutoresizingFlexibleWidth |
                                       UIViewAutoresizingFlexibleHeight;
-
-    // default point for close button
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0){
-        self.closeButtonPoint = CGPointMake(14.0, 74.0);
-    }else{
-        self.closeButtonPoint = CGPointMake(14.0, 14.0);
-    }
-
+    
+    self.closeButtonPoint = CGPointMake(14.0, 14.0);
     self.backgroundViewColor = [UIColor clearColor];
 }
 
@@ -75,7 +69,9 @@
 {
     void *context = (__bridge void *)self;
     [self.tableView removeObserver:self forKeyPath:@"contentOffset" context:context];
+    [self.mapView removeObserver:self forKeyPath:@"userTrackingMode" context:context];
     [self.mapView.userLocation removeObserver:self forKeyPath:@"location" context:context];
+    
 }
 
 

@@ -18,7 +18,8 @@
 /** This is only created if the user does not override the 
  mapViewDidExpand: method. Allows the user to shrink the map. */
 @property (nonatomic, strong) UIButton *closeMapButton;
-
+@property (nonatomic, readwrite) CGPoint closeButtonPoint;
+- (void)didTapCloseMapViewButton:(id)sender;
 @end
 
 @implementation LocationPickerView
@@ -58,6 +59,14 @@
     self.autoresizesSubviews        = YES;
     self.autoresizingMask           = UIViewAutoresizingFlexibleWidth |
                                       UIViewAutoresizingFlexibleHeight;
+
+    // default point for close button
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0){
+        self.closeButtonPoint = CGPointMake(14.0, 74.0);
+    }else{
+        self.closeButtonPoint = CGPointMake(14.0, 14.0);
+    }
+
     self.backgroundViewColor = [UIColor clearColor];
 }
 
@@ -200,9 +209,15 @@
     }
 }
 
-- (void)setCustomCloseButton:(UIButton *)closeButton{
+- (void)setCustomCloseButton:(UIButton *)closeButton
+{
+    [self setCustomCloseButton:closeButton atPoint:self.closeButtonPoint];
+}
+
+- (void)setCustomCloseButton:(UIButton *)closeButton atPoint:(CGPoint)buttonPoint{
     self.closeMapButton = closeButton;
-    [self.closeMapButton addTarget:self action:@selector(hideMapView:) forControlEvents:UIControlEventTouchUpInside];
+    self.closeButtonPoint = buttonPoint;
+    [self.closeMapButton addTarget:self action:@selector(didTapCloseMapViewButton:) forControlEvents:UIControlEventTouchUpInside];
     self.closeMapButton.hidden = YES;
     
     [self insertSubview:self.closeMapButton aboveSubview:self.mapView];
@@ -219,17 +234,16 @@
 {
     if (!self.closeMapButton) {
         self.closeMapButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0){
-            self.closeMapButton.frame = CGRectMake(14.0, 74.0, 42.0, 42.0);
-        }else{
-            self.closeMapButton.frame = CGRectMake(14.0, 14.0, 42.0, 42.0);
-        }
+        self.closeMapButton.frame = CGRectMake(self.closeButtonPoint.x, self.closeButtonPoint.y, 42.0, 42.0);
         [self.closeMapButton setImage:[UIImage imageForXIcon] forState:UIControlStateNormal];
         [self.closeMapButton setImage:[UIImage imageForXIcon] forState:UIControlStateHighlighted];
-        [self.closeMapButton addTarget:self action:@selector(hideMapView:) forControlEvents:UIControlEventTouchUpInside];
+        [self.closeMapButton addTarget:self action:@selector(didTapCloseMapViewButton:) forControlEvents:UIControlEventTouchUpInside];
         self.closeMapButton.hidden = YES;
         
         [self insertSubview:self.closeMapButton aboveSubview:self.mapView];
+    }
+    else{
+        [self.closeMapButton setFrame:CGRectMake(self.closeButtonPoint.x, self.closeButtonPoint.y, self.closeMapButton.frame.size.width, self.closeMapButton.frame.size.height)];
     }
     
     self.closeMapButton.alpha = 0.0;
@@ -331,6 +345,20 @@
 - (void)expandMapView:(id)sender
 {
     [self expandMapView:sender animated:YES];
+}
+
+- (void)didTapCloseMapViewButton:(id)sender
+{
+    // override default close map button action if block is set
+    if(self.mapCloseButtonTapped)
+    {
+        self.mapCloseButtonTapped(self);
+    }
+    else
+    {
+        // default action for close map view button
+        [self hideMapView:self];
+    }
 }
 
 - (void)hideMapView:(id)sender animated:(BOOL)animated

@@ -85,6 +85,9 @@ typedef void (^LocationPickerViewBlock)(LocationPickerView *locationPicker);
 @property (nonatomic, copy) LocationPickerViewBlock mapViewWillBeHidden;
 @property (nonatomic, copy) LocationPickerViewBlock mapViewWasHidden;
 
+/* custom action for close map view button, overrides default action */
+@property (nonatomic, copy) LocationPickerViewBlock mapCloseButtonTapped;
+
 /** Makes the map view full screen. */
 - (void)expandMapView:(id)sender animated:(BOOL)animated;
 - (IBAction)expandMapView:(id)sender;
@@ -98,6 +101,9 @@ typedef void (^LocationPickerViewBlock)(LocationPickerView *locationPicker);
 
 /** Set custom close button map */
 - (void)setCustomCloseButton:(UIButton *)closeButton;
+
+/** Set custom close button map at x/y point */
+- (void)setCustomCloseButton:(UIButton *)closeButton atPoint:(CGPoint)buttonPoint;
 
 @end
 

@@ -215,6 +215,7 @@
 }
 
 - (void)setCustomCloseButton:(UIButton *)closeButton atPoint:(CGPoint)buttonPoint{
+    if(self.closeMapButton) [self.closeMapButton removeFromSuperview];
     self.closeMapButton = closeButton;
     self.closeButtonPoint = buttonPoint;
     [self.closeMapButton addTarget:self action:@selector(didTapCloseMapViewButton:) forControlEvents:UIControlEventTouchUpInside];

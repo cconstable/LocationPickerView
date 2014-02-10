@@ -44,6 +44,11 @@ typedef void (^LocationPickerViewBlock)(LocationPickerView *locationPicker);
  to it's default size. This property defaults to NO. */
 @property (nonatomic) BOOL shouldCreateHideMapButton;
 
+/** If the map is tracking the user location and this variable is set to 'YES',
+ the map will automatically center on the user's location when shrinking / expanding.
+ This defaults to NO. */
+@property (nonatomic) BOOL shouldAutoCenterOnUserLocation;
+
 /** Is the map covering the full screen? */
 @property (nonatomic, readonly) BOOL isMapFullScreen;
 

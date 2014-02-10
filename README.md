@@ -5,17 +5,23 @@ MKMapView + UITableView + Parallax scrolling. Provides a framework for building 
 
 This view is useful for when a list of scrollable, selectable locations need to be shown along with their locations on map. A search bar can easily be added for searching or filtering.
 
-<table>
-  <tr>
-    <td><img src="https://raw.github.com/mstrchrstphr/LocationPickerView/master/github-images/01.png"/></td>
-    <td><img src="https://raw.github.com/mstrchrstphr/LocationPickerView/master/github-images/02.png"/></td>
-  </tr>
-</table>
+<p align="center">
+    <img src="github-images/location-picker.gif"/></td>
+</p>
+
+## Install
+
+### Cocoapods
+
+`pod 'LocationPickerView', '~> 1.2.0'`
+
+### Manual
+
+Drop the **LocationPickerView** folder into your app. 
 
 ## Usage
 
-1. Drop the **LocationPickerView** folder into your app. 
-2. In the view controlller you'd like to use the location picker in, add the following lines to `viewDidLoad`:
+In the view controlller you'd like to use the location picker in, add the following lines to `viewDidLoad`:
 
 ```
 LocationPickerView *locationPickerView = [[LocationPickerView alloc] initWithFrame:self.view.bounds];
@@ -66,7 +72,7 @@ Of particular use is the `delegate` property which allows you to know when impor
 
 NOTE: Don't set the `backgroundColor` property of the table view. Color your cells or the `LocationPickerView` instead.
 
-## Upcoming Features / Items
+## Feature Wishlist
 
 * Add map annotations that sync with table view.
 * Add some basic search functionality.
@@ -74,7 +80,7 @@ NOTE: Don't set the `backgroundColor` property of the table view. Color your cel
 
 ## Known Issues
 
-* Currently, deselecting a cell with animation doesn't look so good.
+* Currently, deselecting a cell with animation doesn't look so good. You'll need to animate this yourself but hey, you can make it fancy!
 
 ## Contributing
 

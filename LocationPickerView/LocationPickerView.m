@@ -56,17 +56,12 @@
     _defaultMapHeight               = 130.0f;
     _parallaxScrollFactor           = 0.6f;
     _amountToScrollToFullScreenMap  = 110.0f;
+    _shouldAutoCenterOnUserLocation = NO;
     self.autoresizesSubviews        = YES;
     self.autoresizingMask           = UIViewAutoresizingFlexibleWidth |
                                       UIViewAutoresizingFlexibleHeight;
-
-    // default point for close button
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0){
-        self.closeButtonPoint = CGPointMake(14.0, 74.0);
-    }else{
-        self.closeButtonPoint = CGPointMake(14.0, 14.0);
-    }
-
+    
+    self.closeButtonPoint = CGPointMake(14.0, 14.0);
     self.backgroundViewColor = [UIColor clearColor];
 }
 
@@ -74,6 +69,9 @@
 {
     void *context = (__bridge void *)self;
     [self.tableView removeObserver:self forKeyPath:@"contentOffset" context:context];
+    [self.mapView removeObserver:self forKeyPath:@"userTrackingMode" context:context];
+    [self.mapView.userLocation removeObserver:self forKeyPath:@"location" context:context];
+    
 }
 
 
@@ -93,9 +91,11 @@
             self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(64.0, 0.0, 0.0, 0.0);
         }
         
-        // Add scroll view KVO
         void *context = (__bridge void *)self;
-        [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:context];
+        [self.tableView addObserver:self
+                         forKeyPath:@"contentOffset"
+                            options:NSKeyValueObservingOptionNew
+                            context:context];
         
         [self addSubview:self.tableView];
         
@@ -126,6 +126,17 @@
         self.mapView.zoomEnabled = NO;
         self.mapView.delegate = self.mapViewDelegate;
         [self insertSubview:self.mapView belowSubview:self.tableView];
+        
+        void *context = (__bridge void *)self;
+        [self.mapView.userLocation addObserver:self
+                                    forKeyPath:@"location"
+                                       options:NSKeyValueObservingOptionNew
+                                       context:context];
+        
+        [self.mapView addObserver:self
+                       forKeyPath:@"userTrackingMode"
+                          options:NSKeyValueObservingOptionNew
+                          context:context];
         
         if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewDidLoad:)]) {
             [self.delegate locationPicker:self mapViewDidLoad:self.mapView];
@@ -274,8 +285,15 @@
     }
 }
 
-#pragma mark - Public Methods
-- (void)expandMapView:(id)sender animated:(BOOL)animated
+#pragma mark - Expanding / Shrinking Map Methods
+
+- (void)expandMapView:(id)sender
+{
+    [self expandMapView:sender animated:YES];
+}
+
+- (void)expandMapView:(id)sender
+             animated:(BOOL)animated
 {
     if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewWillExpand:)]) {
         [self.delegate locationPicker:self mapViewWillExpand:self.mapView];
@@ -308,44 +326,40 @@
                          animations:^{
                              self.mapView.frame = self.bounds;
                          } completion:^(BOOL finished) {
-                             self.isMapAnimating = NO;
-                             _isMapFullScreen = YES;
-                             self.mapView.scrollEnabled = YES;
-                             self.mapView.zoomEnabled = YES;
-                             
-                             if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewDidExpand:)]) {
-                                 [self.delegate locationPicker:self mapViewDidExpand:self.mapView];
-                             }
-                             if (self.mapViewDidExpand) {
-                                 self.mapViewDidExpand(self);
-                             }
-                             
-                             if (self.shouldCreateHideMapButton) {
-                                 [self showCloseMapButton];
-                             }
+                             [self mapViewDidFinishExpanding];
                          }];
     }
     else
     {
         self.mapView.frame = self.bounds;
-        self.isMapAnimating = NO;
-        _isMapFullScreen = YES;
-        self.mapView.scrollEnabled = YES;
-        self.mapView.zoomEnabled = YES;
-        
-        if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewDidExpand:)]) {
-            [self.delegate locationPicker:self mapViewDidExpand:self.mapView];
-        }
-        
-        if (self.shouldCreateHideMapButton) {
-            [self showCloseMapButton];
-        }
+        [self mapViewDidFinishExpanding];
     }
 }
 
-- (void)expandMapView:(id)sender
+- (void)mapViewDidFinishExpanding
 {
-    [self expandMapView:sender animated:YES];
+    self.isMapAnimating = NO;
+    _isMapFullScreen = YES;
+    self.mapView.scrollEnabled = YES;
+    self.mapView.zoomEnabled = YES;
+    
+    [self centerMapOnUserLocationIfNecessary];
+    
+    if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewDidExpand:)]) {
+        [self.delegate locationPicker:self mapViewDidExpand:self.mapView];
+    }
+    if (self.mapViewDidExpand) {
+        self.mapViewDidExpand(self);
+    }
+    
+    if (self.shouldCreateHideMapButton) {
+        [self showCloseMapButton];
+    }
+}
+
+- (void)hideMapView:(id)sender
+{
+    [self hideMapView:sender animated:YES];
 }
 
 - (void)didTapCloseMapViewButton:(id)sender
@@ -396,39 +410,31 @@
                              self.mapView.frame = self.defaultMapViewFrame;
                              self.tableView.frame = tempFrame;
                          } completion:^(BOOL finished) {
-                             
-                             // "Pop" the map view back in
-                             [self insertSubview:self.closeMapButton aboveSubview:self.mapView];
-                             self.isMapAnimating = NO;
-                             _isMapFullScreen = NO;
-                             
-                             if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewWasHidden:)]) {
-                                 [self.delegate locationPicker:self mapViewWasHidden:self.mapView];
-                             }
-                             if (self.mapViewWasHidden) {
-                                 self.mapViewWasHidden(self);
-                             }
+                             [self mapViewDidFinishHiding];
                          }];
     }
     else
     {
         self.mapView.frame = self.defaultMapViewFrame;
         self.tableView.frame = tempFrame;
-
-        // "Pop" the map view back in
-        [self insertSubview:self.closeMapButton aboveSubview:self.mapView];
-        self.isMapAnimating = NO;
-        _isMapFullScreen = NO;
-        
-        if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewWasHidden:)]) {
-            [self.delegate locationPicker:self mapViewWasHidden:self.mapView];
-        }
+        [self mapViewDidFinishHiding];
     }
 }
 
-- (void)hideMapView:(id)sender
+- (void)mapViewDidFinishHiding
 {
-    [self hideMapView:sender animated:YES];
+    [self insertSubview:self.closeMapButton aboveSubview:self.mapView];
+    self.isMapAnimating = NO;
+    _isMapFullScreen = NO;
+    
+    [self centerMapOnUserLocationIfNecessary];
+    
+    if ([self.delegate respondsToSelector:@selector(locationPicker:mapViewWasHidden:)]) {
+        [self.delegate locationPicker:self mapViewWasHidden:self.mapView];
+    }
+    if (self.mapViewWasHidden) {
+        self.mapViewWasHidden(self);
+    }
 }
 
 - (void)toggleMapView:(id)sender
@@ -440,6 +446,15 @@
         else {
             [self expandMapView:self];
         }
+    }
+}
+
+- (void)centerMapOnUserLocationIfNecessary
+{
+    if (self.shouldAutoCenterOnUserLocation && self.mapView.userTrackingMode) {
+        MKCoordinateRegion centerCoordinate = MKCoordinateRegionMake(self.mapView.userLocation.coordinate, self.mapView.region.span);
+        [self.mapView setRegion:centerCoordinate
+                       animated:YES];
     }
 }
 
@@ -459,7 +474,9 @@
     if ((object == self.tableView) &&
         ([keyPath isEqualToString:@"contentOffset"] == YES)) {
         [self scrollViewDidScrollWithOffset:self.tableView.contentOffset.y];
-        return;
+    }
+    else if ((object == self.mapView) &&
+        ([keyPath isEqualToString:@"userTrackingMode"] == YES)) {
     }
 }
 

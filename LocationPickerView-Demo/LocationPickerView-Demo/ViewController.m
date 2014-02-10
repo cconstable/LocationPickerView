@@ -27,14 +27,16 @@
     
     // Optional parameters
     self.locationPickerView.delegate = self;
+    self.locationPickerView.shouldAutoCenterOnUserLocation = YES;
     self.locationPickerView.shouldCreateHideMapButton = YES;
     self.locationPickerView.pullToExpandMapEnabled = YES;
-    self.locationPickerView.defaultMapHeight = 220.0; // larger than normal
-    self.locationPickerView.parallaxScrollFactor = 0.3; // little slower than normal.
+    self.locationPickerView.defaultMapHeight = 220.0;           // larger than normal
+    self.locationPickerView.parallaxScrollFactor = 0.3;         // little slower than normal.
     
     // Optional setup
     self.locationPickerView.mapViewDidLoadBlock = ^(LocationPickerView *locationPicker) {
         locationPicker.mapView.mapType = MKMapTypeStandard;
+        locationPicker.mapView.userTrackingMode = MKUserTrackingModeFollow;
     };
     self.locationPickerView.tableViewDidLoadBlock = ^(LocationPickerView *locationPicker) {
         locationPicker.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;

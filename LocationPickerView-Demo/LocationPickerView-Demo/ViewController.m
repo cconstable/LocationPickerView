@@ -13,6 +13,8 @@
 @interface ViewController ()
 
 @property (nonatomic,strong)NSArray *cities;
+@property (nonatomic,strong)NSMutableArray *selectedItems;
+@property (nonatomic,strong)NSMutableDictionary *annotations;
 @end
 
 @implementation ViewController
@@ -56,6 +58,8 @@
     [self.view addSubview:self.locationPickerView];
     
     self.cities = [NSArray arrayWithObjects:@"Colombo",@"London",@"New York",@"Cardiff",@"Moscow",@"Beijing",@"Tokyo",@"Melbourne",@"Zurich",@"Berlin",@"Salzburg",@"Helsinki",@"Seoul",@"Pyong Yang",@"Perth",@"Brisbane",@"Oslo",@"Sydney",@"Vienna",@"Cairo",@"Rio De Janeiro",@"Nairobi", nil];
+    self.selectedItems = [[NSMutableArray alloc]init];
+    self.annotations = [[NSMutableDictionary alloc]init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -80,13 +84,28 @@
     
     cell.textLabel.text = [self.cities objectAtIndex:indexPath.row];
     
+
+    cell.textLabel.text = [self.cities objectAtIndex:indexPath.row];
+    if ([self.selectedItems containsObject:[self.cities objectAtIndex:indexPath.row]]) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self setLocation:[self.cities objectAtIndex:indexPath.row]];
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+
+    if ([self.selectedItems containsObject:[self.cities objectAtIndex:indexPath.row]]) {
+        [self.selectedItems removeObject:[self.cities objectAtIndex:indexPath.row]];
+        [self removeLocation:[self.cities objectAtIndex:indexPath.row]];
+    }else {
+        [self.selectedItems addObject:[self.cities objectAtIndex:indexPath.row]];
+        [self setLocation:[self.cities objectAtIndex:indexPath.row]];
+    }
+    
+    [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 
 }
 
@@ -157,9 +176,15 @@
                          
                          [weakSelf.locationPickerView.mapView setRegion:region animated:YES];
                          [weakSelf.locationPickerView.mapView addAnnotation:placemark];
+                         
+                         [self.annotations setObject:placemark forKey:location];
                      }
                  }
      ];
 }
 
+- (void)removeLocation:(NSString *)location{
+    
+    [self.locationPickerView.mapView removeAnnotation:[self.annotations objectForKey:location]];
+}
 @end

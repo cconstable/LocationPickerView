@@ -8,9 +8,11 @@
 
 #import <MapKit/MapKit.h>
 #import "ViewController.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface ViewController ()
 
+@property (nonatomic,strong)NSArray *cities;
 @end
 
 @implementation ViewController
@@ -52,6 +54,8 @@
     */
 
     [self.view addSubview:self.locationPickerView];
+    
+    self.cities = [NSArray arrayWithObjects:@"Colombo",@"London",@"New York",@"Cardiff",@"Moscow",@"Beijing",@"Tokyo",@"Melbourne",@"Zurich",@"Berlin",@"Salzburg",@"Helsinki",@"Seoul",@"Pyong Yang",@"Perth",@"Brisbane",@"Oslo",@"Sydney",@"Vienna",@"Cairo",@"Rio De Janeiro",@"Nairobi", nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,7 +68,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 20;
+    return [self.cities count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -74,15 +78,16 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"reusable"];
     }
     
-    cell.textLabel.text = [NSString stringWithFormat:@"Row %d", indexPath.row];
+    cell.textLabel.text = [self.cities objectAtIndex:indexPath.row];
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self setLocation:[self.cities objectAtIndex:indexPath.row]];
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    [self performSegueWithIdentifier:@"Second" sender:self];
+
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -134,5 +139,27 @@
     tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 }
 
+#pragma mark -
+- (void)setLocation:(NSString *)location{
+    
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    __weak typeof(self) weakSelf = self;
+    [geocoder geocodeAddressString:location
+                 completionHandler:^(NSArray* placemarks, NSError* error){
+                     if (placemarks && placemarks.count > 0) {
+                         CLPlacemark *topResult = [placemarks objectAtIndex:0];
+                         MKPlacemark *placemark = [[MKPlacemark alloc] initWithPlacemark:topResult];
+                         
+                         MKCoordinateRegion region = weakSelf.locationPickerView.mapView.region;
+                         region.center = [(CLCircularRegion *)placemark.region center];
+                         region.span.longitudeDelta /= 8.0;
+                         region.span.latitudeDelta /= 8.0;
+                         
+                         [weakSelf.locationPickerView.mapView setRegion:region animated:YES];
+                         [weakSelf.locationPickerView.mapView addAnnotation:placemark];
+                     }
+                 }
+     ];
+}
 
 @end

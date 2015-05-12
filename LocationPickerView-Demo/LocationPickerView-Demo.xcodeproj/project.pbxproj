@@ -21,7 +21,7 @@
 		747B6506173EFB5900DECD54 /* LocationPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 747B6503173EFB5900DECD54 /* LocationPickerView.m */; };
 		747B6507173EFB5900DECD54 /* UIImage+Icons.m in Sources */ = {isa = PBXBuildFile; fileRef = 747B6505173EFB5900DECD54 /* UIImage+Icons.m */; };
 		747B6509173F35A900DECD54 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 747B6508173F35A900DECD54 /* MapKit.framework */; };
-		747B650C173F388500DECD54 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 747B650B173F388500DECD54 /* SecondViewController.m */; };
+		F5760A121B0266AD0002CBC2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5760A111B0266AD0002CBC2 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,8 +46,7 @@
 		747B6504173EFB5900DECD54 /* UIImage+Icons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Icons.h"; sourceTree = "<group>"; };
 		747B6505173EFB5900DECD54 /* UIImage+Icons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Icons.m"; sourceTree = "<group>"; };
 		747B6508173F35A900DECD54 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		747B650A173F388500DECD54 /* SecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		747B650B173F388500DECD54 /* SecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		F5760A111B0266AD0002CBC2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5760A121B0266AD0002CBC2 /* CoreLocation.framework in Frameworks */,
 				747B6509173F35A900DECD54 /* MapKit.framework in Frameworks */,
 				747B64DF173EFB4400DECD54 /* UIKit.framework in Frameworks */,
 				747B64E1173EFB4400DECD54 /* Foundation.framework in Frameworks */,
@@ -86,6 +86,7 @@
 		747B64DD173EFB4400DECD54 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F5760A111B0266AD0002CBC2 /* CoreLocation.framework */,
 				747B6508173F35A900DECD54 /* MapKit.framework */,
 				747B64DE173EFB4400DECD54 /* UIKit.framework */,
 				747B64E0173EFB4400DECD54 /* Foundation.framework */,
@@ -102,8 +103,6 @@
 				747B64F6173EFB4400DECD54 /* MainStoryboard.storyboard */,
 				747B64F9173EFB4400DECD54 /* ViewController.h */,
 				747B64FA173EFB4400DECD54 /* ViewController.m */,
-				747B650A173F388500DECD54 /* SecondViewController.h */,
-				747B650B173F388500DECD54 /* SecondViewController.m */,
 				747B64E5173EFB4400DECD54 /* Supporting Files */,
 			);
 			path = "LocationPickerView-Demo";
@@ -206,7 +205,6 @@
 				747B64FB173EFB4400DECD54 /* ViewController.m in Sources */,
 				747B6506173EFB5900DECD54 /* LocationPickerView.m in Sources */,
 				747B6507173EFB5900DECD54 /* UIImage+Icons.m in Sources */,
-				747B650C173F388500DECD54 /* SecondViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,6 +327,7 @@
 				747B6500173EFB4400DECD54 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

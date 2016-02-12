@@ -11,7 +11,7 @@ This view is useful for when a list of scrollable, selectable locations need to 
 
 ## Install
 
-### Cocoapods
+### CocoaPods
 
 `pod 'LocationPickerView', '~> 1.2.0'`
 

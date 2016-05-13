@@ -8,7 +8,7 @@ MKMapView + UITableView + Parallax scrolling. Provides a framework for building 
 This view is useful for when a list of scrollable, selectable locations need to be shown along with their locations on map. A search bar can easily be added for searching or filtering.
 
 <p align="center">
-    <img src="github-images/location-picker.gif"/></td>
+    <img src="github-images/locationPicker.png"/></td>
 </p>
 
 ## Install
